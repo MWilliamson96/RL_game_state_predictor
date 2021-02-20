@@ -1,0 +1,94 @@
+{% set name = "carball" %}
+{% set version = "0.7.5" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  sha256: 39798d3f7727263d2f4a13e9ba692c1494bdcbc6e20da3a61c1bd92303609aa8
+
+build:
+  number: 0
+  entry_points:
+    - carball=carball.command_line:main
+  script: "{{ PYTHON }} -m pip install . -vv"
+
+requirements:
+  host:
+    - boxcars-py ==0.1.*
+    - numpy ==1.18.2
+    - pandas ==1.0.3
+    - pip
+    - protobuf ==3.6.1
+    - python
+    - xlrd ==1.1.0
+  run:
+    - boxcars-py ==0.1.*
+    - numpy ==1.18.2
+    - pandas ==1.0.3
+    - protobuf ==3.6.1
+    - python
+    - xlrd ==1.1.0
+
+test:
+  imports:
+    - carball
+    - carball.analysis
+    - carball.analysis.cleaner
+    - carball.analysis.constants
+    - carball.analysis.events
+    - carball.analysis.events.boost_pad_detection
+    - carball.analysis.events.bump_detection
+    - carball.analysis.events.dropshot
+    - carball.analysis.events.fifty_fifty
+    - carball.analysis.events.hit_detection
+    - carball.analysis.events.hit_detection.hitbox
+    - carball.analysis.events.hit_pressure
+    - carball.analysis.events.kickoff_detection
+    - carball.analysis.saltie_game
+    - carball.analysis.saltie_game.metadata
+    - carball.analysis.simulator
+    - carball.analysis.stats
+    - carball.analysis.stats.ball_forward
+    - carball.analysis.stats.boost
+    - carball.analysis.stats.controls
+    - carball.analysis.stats.demos
+    - carball.analysis.stats.dribbles
+    - carball.analysis.stats.dropshot
+    - carball.analysis.stats.kickoffs
+    - carball.analysis.stats.possession
+    - carball.analysis.stats.rumble
+    - carball.analysis.stats.tendencies
+    - carball.analysis.stats.utils
+    - carball.analysis.utils
+    - carball.controls
+    - carball.extras
+    - carball.json_parser
+    - carball.json_parser.actor
+    - carball.json_parser.sanity_check
+    - carball.json_parser.sanity_check.base_checks
+    - carball.json_parser.sanity_check.checks
+    - carball.json_parser.sanity_check.errors
+    - carball.tests
+    - carball.tests.benchmarking
+    - carball.tests.docs
+    - carball.tests.metadata
+    - carball.tests.stats
+    - utils
+  commands:
+    - carball --help
+
+about:
+  home: "https://github.com/SaltieRL/carball"
+  license: Apache 2.0
+  license_family: APACHE
+  license_file: 
+  summary: "Rocket League replay parsing and analysis."
+  doc_url: 
+  dev_url: 
+
+extra:
+  recipe-maintainers:
+    - your-github-id-here
